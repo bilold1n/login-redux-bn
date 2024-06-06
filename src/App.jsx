@@ -16,24 +16,17 @@ import About from "./pages/About";
 import Login from "./pages/login";
 import Register from "./pages/Register";
 
-function ProtectedRoute({ children }) {
-  const user = JSON.parse(localStorage.getItem("users")) ?? false;
-  return user ? children : <Navigate to="/signup" />;
-}
+// function ProtectedRoute({ children }) {
+//   const user = JSON.parse(localStorage.getItem("users")) ?? false;
+//   return user ? children : <Navigate to="/signup" />;
+// }
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         {/* <Route path="/signup" element={<Register />} /> */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
         </Route>
       </>
