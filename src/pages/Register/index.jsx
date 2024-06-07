@@ -34,7 +34,6 @@ export default function Register() {
   //       console.log(errorMessage);
   //     });
   // };
-
   const [data, setdata] = useState({
     email: "",
     password: "",
@@ -54,6 +53,7 @@ export default function Register() {
         const data = JSON.parse(localStorage.getItem("users")) ?? [];
         localStorage.setItem("users", JSON.stringify([...data, user]));
         localStorage.setItem("user", JSON.stringify(user));
+        navigate("/");
         // dispatch(login(user));
       })
       .catch((error) => {
