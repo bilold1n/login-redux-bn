@@ -17,14 +17,15 @@ import Login from "./pages/login";
 import Register from "./pages/Register";
 
 function ProtectedRoute({ children }) {
-  const user = JSON.parse(localStorage.getItem("users")) ?? false;
-  return user ? children : <Navigate to="/signup" />;
+  const user = JSON.parse(localStorage.getItem("user")) ?? false;
+  return user ? children : <Navigate to="/login" />;
 }
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Register />} />
         <Route
           path="/"

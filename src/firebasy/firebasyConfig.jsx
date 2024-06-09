@@ -2,10 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { doc, deleteDoc } from "firebase/firestore";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDnGQkSO_c1_HDcQHW8AYFI2J5QswQ2CTY",
   authDomain: "myproject-7036d.firebaseapp.com",
@@ -19,3 +17,8 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export async function DeleteDocitem(path, itemid) {
+  const docref = await deleteDoc(doc(db, path, itemid));
+  console.log(docref);
+  return "Document was deleted!";
+}
