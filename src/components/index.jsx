@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../apps/userslice";
 import { Navigate } from "react-router-dom";
 import usegetdata from "../hooks/usegetdata";
-export const [tere, settere] = useState(false);
 export default function Header() {
   const {
     data: [data],

@@ -3,7 +3,6 @@ import usegetdata from "../../hooks/usegetdata";
 import Productmodal from "../../components/productmodal";
 import { DeleteDocitem, db } from "../../firebasy/firebasyConfig";
 import { update } from "firebase/database";
-import { tere, settere } from "../../components";
 import { arrayUnion, count, doc, updateDoc } from "firebase/firestore";
 export default function Home() {
   const [filter, setfilter] = useState("rating");
@@ -27,7 +26,6 @@ export default function Home() {
         count: 1,
       }),
     });
-    settere((prev) => !prev);
     document.getElementById("my_modal_2").closest("dialog").close();
   };
   return (
