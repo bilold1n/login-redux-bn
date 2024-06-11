@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebasy/firebasyConfig";
-import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../apps/userslice";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import usegetdata from "../hooks/usegetdata";
+import { signOut } from "firebase/auth";
+
 export default function Header() {
+  const navigate = useNavigate();
   const { users } = useSelector((state) => state.user);
   console.log(users);
   const {
@@ -14,12 +16,12 @@ export default function Header() {
     error,
   } = usegetdata("cart", "cart", null);
   console.log(data);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const logoutt = () => {
     signOut(auth)
       .then(() => {
         alert("Siz muvoffaqiyatli chiqingiz");
-        <Navigate to={"/register"} />;
+        navigate("/login");
       })
       .catch((error) => {
         // An error happened.
@@ -33,6 +35,9 @@ export default function Header() {
     localStorage.setItem("theme", value);
     const themee = localStorage.getItem("theme");
     document.getElementById("root").setAttribute("data-theme", themee);
+  };
+  const onmodal = () => {
+    setmodal(true), document.getElementById("my_modal_1").showModal();
   };
   return (
     <>
@@ -174,8 +179,7 @@ export default function Header() {
                 <li>
                   <a
                     onClick={() => {
-                      setmodal(true),
-                        document.getElementById("my_modal_1").showModal();
+                      onmodal();
                     }}
                     className="justify-between"
                   >
@@ -187,7 +191,7 @@ export default function Header() {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <a onClick={() => logoutt()}>Logout</a>
                 </li>
               </ul>
             </div>
