@@ -17,8 +17,9 @@ import Login from "./pages/login";
 import Register from "./pages/Register";
 
 function ProtectedRoute({ children }) {
-  const user = JSON.parse(localStorage.getItem("user")) ?? false;
-  return user ? children : <Navigate to="/login" />;
+  const { users } = useSelector((state) => state.user);
+  console.log(users);
+  return users ? children : <Navigate to="/login" />;
 }
 
 function App() {

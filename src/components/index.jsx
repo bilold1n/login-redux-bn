@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../firebasy/firebasyConfig";
 import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,8 @@ import { logout } from "../apps/userslice";
 import { Navigate } from "react-router-dom";
 import usegetdata from "../hooks/usegetdata";
 export default function Header() {
+  const { users } = useSelector((state) => state.user);
+  console.log(users);
   const {
     data: [data],
     ispending,
@@ -23,72 +25,90 @@ export default function Header() {
         // An error happened.
       });
   };
-  // const user = useSelector((state) => state.user);
-  const userr = 1;
-  // console.log(userr);
+  const [modal, setmodal] = useState(false);
+  const [theme, settheme] = useState("night");
+  console.log(theme);
+
+  const handletheme = (value) => {
+    localStorage.setItem("theme", value);
+    const themee = localStorage.getItem("theme");
+    document.getElementById("root").setAttribute("data-theme", themee);
+  };
   return (
-    <div className="navbar bg-base-300">
-      <div className="container navbar">
-        <div className="navbar-start">
+    <>
+      <div className="navbar bg-base-300">
+        <div className="container navbar">
+          <div className="flex-1">
+            <a className="btn btn-ghost text-xl">daisyUI</a>
+          </div>
           <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
-            >
+            <div tabIndex={0} role="button" className="btn m-1">
+              Theme
               <svg
+                width="12px"
+                height="12px"
+                className="h-2 w-2 fill-current opacity-60 inline-block"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                viewBox="0 0 2048 2048"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7"
-                />
+                <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
               </svg>
             </div>
             <ul
+              onClick={(e) => {
+                handletheme(e.target.value);
+              }}
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52"
             >
               <li>
-                <a>Homepage</a>
+                <input
+                  type="radio"
+                  name="theme-dropdown"
+                  className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                  aria-label="Default"
+                  value="night"
+                />
               </li>
               <li>
-                <a>Portfolio</a>
+                <input
+                  type="radio"
+                  name="theme-dropdown"
+                  className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                  aria-label="Retro"
+                  value="retro"
+                />
               </li>
               <li>
-                <a>About</a>
+                <input
+                  type="radio"
+                  name="theme-dropdown"
+                  className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                  aria-label="Cyberpunk"
+                  value="cyberpunk"
+                />
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  name="theme-dropdown"
+                  className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                  aria-label="Valentine"
+                  value="valentine"
+                />
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  name="theme-dropdown"
+                  className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                  aria-label="Aqua"
+                  value="aqua"
+                />
               </li>
             </ul>
           </div>
-        </div>
-        <div className="navbar-center">
-          <a className="btn btn-ghost text-xl">daisyUI</a>
-        </div>
-        <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-
-          <div className="indicator">
+          <div className="flex-none">
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -98,7 +118,7 @@ export default function Header() {
                 <div className="indicator">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7"
+                    className="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -110,13 +130,14 @@ export default function Header() {
                       d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                     />
                   </svg>
-                  <span className="badge bg-[#2f319f] badge-sm indicator-item">
+                  <span className="badge badge-sm indicator-item">
+                    {" "}
                     {data?.product.length ?? 0}
                   </span>
                 </div>
               </div>
               <div
-                tabIndex={10}
+                tabIndex={0}
                 className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
               >
                 <div className="card-body">
@@ -124,9 +145,7 @@ export default function Header() {
                     {" "}
                     {data?.product.length ?? 0} Items
                   </span>
-                  <span className="text-info">
-                    Subtotal: {!!data?.product.length ? "$999" : "$0"}{" "}
-                  </span>
+                  <span className="text-info">Subtotal: $999</span>
                   <div className="card-actions">
                     <button className="btn btn-primary btn-block">
                       View cart
@@ -135,9 +154,65 @@ export default function Header() {
                 </div>
               </div>
             </div>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={users[0]?.photoURL}
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <a
+                    onClick={() => {
+                      setmodal(true),
+                        document.getElementById("my_modal_1").showModal();
+                    }}
+                    className="justify-between"
+                  >
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {modal && (
+        <dialog id="my_modal_1" className="modal">
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <h3 className="font-bold text-lg">Hello!</h3>
+            <div className="flex flex-col items-center">
+              <img width={50} src={users[0]?.photoURL} alt="" />
+              <p className="py-4">Name: {users[0].displayName}</p>
+              <p className="py-4">Email: {users[0].email}</p>
+            </div>
+          </div>
+        </dialog>
+      )}
+    </>
   );
 }

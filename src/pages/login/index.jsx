@@ -4,7 +4,7 @@ import { auth } from "../../firebasy/firebasyConfig";
 import { useDispatch } from "react-redux";
 import { login } from "../../apps/userslice";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 export default function Login() {
   const dispatch = useDispatch();
@@ -24,6 +24,8 @@ export default function Login() {
         const user = userCredential.user;
         console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
+        dispatch(login(auth.currentUser.providerData));
+
         navigate("/");
         // ...
       })
@@ -34,10 +36,13 @@ export default function Login() {
   };
   return (
     <>
-      <div className="hero min-h-screen bg-base-300">
+      <div data-theme="night" className="hero min-h-screen bg-base-300">
         <div className="hero-content flex-col ">
           <div className="text-center   ">
-            <h1 className="text-5xl font-mono">Log in now!</h1>
+            <h2 className="text-5xl font-serif mb-6">Nice to see you!</h2>
+            <p className="font-serif">
+              Enter your email and password to sign in
+            </p>
             <p className="py-6 w-[400px]"></p>
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -96,10 +101,21 @@ export default function Login() {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">Sign in</button>
               </div>
             </form>
           </div>
+          <p style={{ color: "#ffffff95" }}>
+            {" "}
+            Don't have an account?{" "}
+            <Link
+              style={{ textDecoration: "none", color: "white" }}
+              to={"/signup"}
+              type="submit"
+            >
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
 
