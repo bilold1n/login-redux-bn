@@ -77,7 +77,7 @@ export default function Register() {
     })
       .then(() => {
         // Profile updated!
-        alert("Profile updated!");
+        // alert("Profile updated!");
 
         navigate("/");
         dispatch(login(auth.currentUser.providerData));
