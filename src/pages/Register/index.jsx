@@ -79,8 +79,8 @@ export default function Register() {
         // Profile updated!
         // alert("Profile updated!");
 
-        navigate("/");
         dispatch(login(auth.currentUser.providerData));
+        navigate("/");
         // ...
       })
       .catch((error) => {
