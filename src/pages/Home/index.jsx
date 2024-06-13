@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import usegetdata from "../../hooks/usegetdata";
 import Productmodal from "../../components/productmodal";
 import { DeleteDocitem, db } from "../../firebasy/firebasyConfig";
 import { update } from "firebase/database";
 import { arrayUnion, count, doc, updateDoc } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import { filterdata, getproduct, searchData } from "../../apps/product";
 export default function Home() {
+  const dispatch = useDispatch();
+  const { filtereddata } = useSelector((state) => state.product);
   const [filter, setfilter] = useState("rating");
   const [fresh, setfresh] = useState([]);
-  const { data, ispending, error } = usegetdata("product", fresh, filter);
-  console.log(data);
-  // document.getElementById("my_modal_2").showModal();
+  const [search, setsearch] = useState("");
+
+  const { data, ispending, error } = usegetdata("product", fresh);
+  useEffect(() => {
+    !!data?.length && dispatch(getproduct(data));
+  }, [data]);
+  useEffect(() => {
+    dispatch(searchData(search));
+  }, [search]);
+
   const hendledelete = async (id) => {
     document.getElementById("my_modal_2").showModal();
     const status = await DeleteDocitem("product", id);
     setfresh((prev) => !prev);
-    console.log(status);
     document.getElementById("my_modal_2").closest("dialog").close();
   };
   const handlesubmitaddcartr = async (id) => {
@@ -28,12 +38,38 @@ export default function Home() {
     });
     document.getElementById("my_modal_2").closest("dialog").close();
   };
+  useEffect(() => {
+    dispatch(filterdata(filter));
+  }, [filter]);
+  console.log(filtereddata);
+
   return (
     <>
       <div className="container">
         <div className="flex items-center justify-between pb-4 border-b-2 mb-10">
           <h2 className="text-2xl">Products</h2>
           <div className="flex items-center gap-5">
+            <label className="input input-sm input-bordered flex items-center gap-2">
+              <input
+                type="text"
+                className="grow"
+                placeholder="Search"
+                value={search}
+                onChange={(e) => setsearch(e.target.value)}
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="w-4 h-4 opacity-70"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </label>
             <select
               value={filter}
               onChange={(e) => setfilter(e.target.value)}
@@ -61,11 +97,10 @@ export default function Home() {
               ></span>
             </div>
           )}
-          {!!data?.length && (
+          {!!filtereddata?.length && (
             <div className="hammasi">
-              {data.map(
+              {filtereddata.map(
                 ({ id, name, description, price, image, stock, rating }) => {
-                  console.log(image);
                   return (
                     <div
                       key={id}
@@ -99,7 +134,6 @@ export default function Home() {
                               );
                               if (isConfirmed) {
                                 hendledelete(id);
-                                console.log("Element o'chirildi");
                               } else {
                                 alert("o'chirish bekor qilindi");
                               }

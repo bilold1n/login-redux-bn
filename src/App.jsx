@@ -18,7 +18,6 @@ import Register from "./pages/Register";
 
 function ProtectedRoute({ children }) {
   const { users } = useSelector((state) => state.user);
-  console.log(users);
   return users ? children : <Navigate to="/login" />;
 }
 

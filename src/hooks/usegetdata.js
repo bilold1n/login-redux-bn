@@ -3,7 +3,7 @@ import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebasy/firebasyConfig";
 
-export default function usegetdata(collectionName, fresh, filter = "rating") {
+export default function usegetdata(collectionName, fresh) {
   const [data, setdata] = useState([]);
   const [ispending, setispending] = useState(true);
   const [error, seterror] = useState({ status: false, massege: "" });
@@ -26,34 +26,6 @@ export default function usegetdata(collectionName, fresh, filter = "rating") {
     };
     getdata();
   }, [fresh]);
-  const refreshData = useMemo(() => {
-    if (filter === null) {
-      return data;
-    }
-    if (filter == "name") {
-      data.sort(function (a, b) {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
-    }
-    if (filter == "!name") {
-      data.sort(function (a, b) {
-        if (a.name < b.name) {
-          return 1;
-        }
-        if (a.name > b.name) {
-          return -1;
-        }
-        return 0;
-      });
-    }
 
-    return data.sort((a, b) => b[`${filter}`] - a[`${filter}`]);
-  }, [filter, data]);
-  return { data: refreshData, ispending, error };
+  return { data, ispending, error };
 }
