@@ -79,18 +79,21 @@ export default function Register() {
         // Profile updated!
         // alert("Profile updated!");
 
-        dispatch(login(auth.currentUser.providerData));
+        dispatch(login(auth.currentUser.providerData[0]));
         navigate("/");
         // ...
       })
       .catch((error) => {
         // An error occurred
         // ...
-      });
-    localStorage.setItem(
-      "user",
-      JSON.stringify(auth.currentUser.providerData[0])
-    );
+      })
+      .finally(() =>
+        localStorage.setItem(
+          "user",
+          JSON.stringify(auth.currentUser.providerData[0])
+        )
+      );
+
     navigate("/");
   };
   return (
@@ -252,7 +255,7 @@ export default function Register() {
               Already have an account?{" "}
               <Link
                 style={{ textDecoration: "none", color: "white" }}
-                to={"/"}
+                to={"/login"}
                 type="submit"
               >
                 Sign in

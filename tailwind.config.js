@@ -9,6 +9,7 @@ export default {
     themes: [
       "light",
       "dark",
+      "synthwave",
       "halloween",
       "dim",
       "luxury",

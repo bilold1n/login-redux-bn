@@ -80,8 +80,26 @@ export default function Header() {
                   type="radio"
                   name="theme-dropdown"
                   className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                  aria-label="Light"
+                  value="light"
+                />
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  name="theme-dropdown"
+                  className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                   aria-label="Retro"
                   value="retro"
+                />
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  name="theme-dropdown"
+                  className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                  aria-label="Synthwave"
+                  value="synthwave"
                 />
               </li>
               <li>
@@ -100,15 +118,6 @@ export default function Header() {
                   className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
                   aria-label="Valentine"
                   value="valentine"
-                />
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="theme-dropdown"
-                  className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                  aria-label="Aqua"
-                  value="aqua"
                 />
               </li>
             </ul>
@@ -168,7 +177,7 @@ export default function Header() {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src={users[0]?.photoURL}
+                    src={users?.photoURL}
                   />
                 </div>
               </div>

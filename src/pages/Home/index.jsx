@@ -73,8 +73,8 @@ export default function Home() {
                     >
                       <figure>
                         <img
-                          width={250}
-                          height={250}
+                          width={220}
+                          height={200}
                           src={image}
                           alt="page not fount"
                         />
