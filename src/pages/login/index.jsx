@@ -24,7 +24,7 @@ export default function Login() {
         const user = userCredential.user;
         console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
-        dispatch(login(auth.currentUser.providerData));
+        dispatch(login(auth.currentUser.providerData[0]));
 
         navigate("/");
         // ...

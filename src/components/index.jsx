@@ -220,8 +220,8 @@ export default function Header() {
             <h3 className="font-bold text-lg">Hello!</h3>
             <div className="flex flex-col items-center">
               <img width={50} src={users[0]?.photoURL} alt="" />
-              <p className="py-4">Name: {users[0].displayName}</p>
-              <p className="py-4">Email: {users[0].email}</p>
+              <p className="py-4">Name: {users?.displayName}</p>
+              <p className="py-4">Email: {users?.email}</p>
             </div>
           </div>
         </dialog>
