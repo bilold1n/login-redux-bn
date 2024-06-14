@@ -219,7 +219,7 @@ export default function Header() {
             </form>
             <h3 className="font-bold text-lg">Hello!</h3>
             <div className="flex flex-col items-center">
-              <img width={50} src={users[0]?.photoURL} alt="" />
+              <img width={50} src={users?.photoURL} alt="" />
               <p className="py-4">Name: {users?.displayName}</p>
               <p className="py-4">Email: {users?.email}</p>
             </div>
