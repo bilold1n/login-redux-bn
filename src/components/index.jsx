@@ -146,7 +146,7 @@ export default function Header() {
                   </svg>
                   <span className="badge badge-sm indicator-item">
                     {" "}
-                    {data?.product.length ?? 0}
+                    {data?.product?.length ?? 0}
                   </span>
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function Header() {
                 <div className="card-body">
                   <span className="font-bold text-lg">
                     {" "}
-                    {data?.product.length ?? 0} Items
+                    {data?.product?.length ?? 0} Items
                   </span>
                   <span className="text-info">Subtotal: $999</span>
                   <div className="card-actions">

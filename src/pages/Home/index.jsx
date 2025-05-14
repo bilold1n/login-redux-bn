@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import usegetdata from "../../hooks/usegetdata";
 import Productmodal from "../../components/productmodal";
 import { DeleteDocitem, db } from "../../firebasy/firebasyConfig";
-import { update } from "firebase/database";
 import { arrayUnion, count, doc, updateDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { filterdata, getproduct, searchData } from "../../apps/product";
@@ -97,6 +96,7 @@ export default function Home() {
               ></span>
             </div>
           )}
+
           {!!filtereddata?.length && (
             <div className="hammasi">
               {filtereddata.map(
